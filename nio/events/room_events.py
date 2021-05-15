@@ -634,8 +634,8 @@ class RoomCreateEvent(Event):
         version = parsed_dict["content"]["room_version"]
         if "type" in parsed_dict["content"]:
             room_type = parsed_dict["content"]["type"]
-        #elif "org.matrix.msc1772.type" in parsed_dict["content"]:
-        #    room_type = parsed_dict['content']['org.matrix.msc1772.type']
+        elif "org.matrix.msc1772.type" in parsed_dict["content"]:
+            room_type = parsed_dict['content']['org.matrix.msc1772.type']
         else:
             room_type = None
 
