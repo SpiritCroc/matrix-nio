@@ -181,4 +181,33 @@ class ChangeHistoryVisibilityBuilder(EventBuilder):
             "content":   {"history_visibility": self.visibility},
         }
 
+
+@dataclass
+class AddSpaceChildBuilder(EventBuilder):
+    """A state event to add a room to a space
+
+    Attributes:
+        room_id: the room to add to the current space
+        via_servers
+        auto_join
+        suggested
+    """
+
+    room_id: str = field()
+    via_servers: list = field()
+    auto_join: bool # TODO false
+    suggested: bool # TODO false
+
+    def as_dict(self):
+        return {
+            "type":      "m.space.child",
+            "state_key": self.room_id,
+            "content":   {
+                    "via": self.via_servers,
+                    "autoJoin": self.auto_join,
+                    #"order": None,
+                    "suggested": self.suggested,
+            },
+        }
+
 # TODO: power_levels, canonical_alias, avatar, pinned_events
