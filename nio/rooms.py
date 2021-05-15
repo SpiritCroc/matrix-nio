@@ -55,6 +55,7 @@ class MatrixRoom:
         """Initialize a MatrixRoom object."""
         # yapf: disable
         self.room_id = room_id        # type: str
+        self.room_type = None         # type: str
         self.own_user_id = own_user_id
         self.creator = ""             # type: str
         self.federate = True          # type: bool
@@ -352,6 +353,7 @@ class MatrixRoom:
             self.creator = event.creator
             self.federate = event.federate
             self.room_version = event.room_version
+            self.room_type = event.room_type
 
         elif isinstance(event, RoomGuestAccessEvent):
             self.guest_access = event.guest_access
