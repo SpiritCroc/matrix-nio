@@ -220,8 +220,8 @@ class Olm:
                 self.user_id, self.device_id))
             account = OlmAccount()
             self.save_account(account)
-        else:
-            self.load()
+
+        self.load()
 
         self.account = account  # type: OlmAccount
 
@@ -839,12 +839,10 @@ class Olm:
                 if (payload['user_id'] != user_id
                         or payload['device_id'] != device_id):
                     logger.warn(
-                        "Mismatch in keys payload of device %s "
-                        "(%s) of user %s (%s).",
-                        payload['device_id'],
-                        device_id,
-                        payload['user_id'],
-                        user_id
+                        "Mismatch in keys payload of device "
+                        f"{payload['device_id']} "
+                        f"({device_id}) of user {payload['user_id']} "
+                        f"({user_id}).",
                     )
                     continue
 
