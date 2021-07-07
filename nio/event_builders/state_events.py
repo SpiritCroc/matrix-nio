@@ -210,4 +210,21 @@ class AddSpaceChildBuilder(EventBuilder):
             },
         }
 
+@dataclass
+class RemoveSpaceChildBuilder(EventBuilder):
+    """A state event to remove a room from a space
+
+    Attributes:
+        room_id: the room to remove from the current space
+    """
+
+    room_id: str = field()
+
+    def as_dict(self):
+        return {
+            "type":      "m.space.child",
+            "state_key": self.room_id,
+            "content":   {},
+        }
+
 # TODO: power_levels, canonical_alias, avatar, pinned_events
