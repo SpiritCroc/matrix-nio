@@ -164,6 +164,8 @@ class Event:
             return Event.parse_encrypted_event(event_dict)
         elif event_dict["type"] == "m.sticker":
             return StickerEvent.from_dict(event_dict)
+        elif event_dict["type"] == "m.space.child":
+            return SpaceChildEvent.from_dict(event_dict)
         elif event_dict["type"].startswith("m.call"):
             return CallEvent.parse_event(event_dict)
 
@@ -1502,5 +1504,26 @@ class StickerEvent(Event):
             parsed_dict,
             body,
             url,
+            content,
+        )
+
+@dataclass
+class SpaceChildEvent(Event):
+    """An event indicating a space child change
+    """
+
+    state_key: str = field()
+    content: Dict[str, Any] = field()
+
+    @classmethod
+    #@verify(Schemas.space_child) # TODO
+    def from_dict(cls, parsed_dict):
+        # type: (Dict[Any, Any]) -> Union[StickerEvent, BadEventType]
+        state_key = parsed_dict.get("state_key", {})
+        content = parsed_dict.get("content", {})
+
+        return cls(
+            parsed_dict,
+            state_key,
             content,
         )
